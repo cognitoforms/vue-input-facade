@@ -1284,10 +1284,12 @@ function updateCursor(event, originalValue, originalPosition) {
 
   if (target !== document.activeElement || !supportedInputType || !config.mask) {
     return;
-  } // get some information about the cursor based on the original value
+  } // if event.inputType is not supported, assume 'insertText'
 
 
-  const isInsertEvent = ['insertText', 'insertFromPaste'].includes(event.inputType);
+  const inputType = event.inputType || 'insertText'; // get some information about the cursor based on the original value
+
+  const isInsertEvent = ['insertText', 'insertFromPaste'].includes(inputType);
   const wasCursorAtEnd = isInsertEvent && originalPosition == originalValue.length;
   let lastInsertedChar = isInsertEvent && originalValue[originalPosition - 1];
   const newValue = target.value.toLocaleLowerCase(); // set the cursor position to an appropriate location
@@ -1558,7 +1560,7 @@ const directive_CONFIG_KEY = CONFIG_KEY;
     getInputElement(el)[directive_CONFIG_KEY].cleanup();
   }
 });
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"0a45031a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/component.vue?vue&type=template&id=25a429ca&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"772724e8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/component.vue?vue&type=template&id=25a429ca&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input',{directives:[{name:"facade",rawName:"v-facade",value:(_vm.config),expression:"config"}],attrs:{"type":"text"},domProps:{"value":_vm.maskedValue},on:{"input":_vm.onInput,"change":_vm.onChange,"blur":function($event){return _vm.$emit('blur')},"focus":function($event){return _vm.$emit('focus')}}})}
 var staticRenderFns = []
 
