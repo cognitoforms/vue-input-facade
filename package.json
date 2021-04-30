@@ -1,27 +1,30 @@
 {
   "name": "vue-input-facade",
-  "version": "0.0.0-development",
+  "version": "1.3.3",
   "description": "A lightweight and dependency free input masking library created specific for Vue",
   "author": "Ronald Jerez <dlanor@gmail.com> (https://github.com/RonaldJerez/)",
   "license": "MIT",
   "homepage": "https://ronaldjerez.github.io/vue-input-facade",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RonaldJerez/vue-input-facade.git"
+    "url": "https://github.com/cognitoforms/vue-input-facade.git"
   },
   "scripts": {
-    "build": "npm run build:docs; npm run build:plugin",
     "lint": "vue-cli-service lint",
     "build:plugin": "vue-cli-service build --target=lib src/plugin.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release",
     "dev": "vue-cli-service styleguidist --config styleguide/config.js --mode development",
     "build:docs": "vue-cli-service styleguidist:build --config styleguide/config.js",
+    "build": "npm run build:docs && npm run build:plugin",
     "test": "jest --coverage",
-    "test:watch": "jest --coverage --watchAll"
+    "test:watch": "jest --coverage --watchAll",
+    "release": "dotenv release-it --"
   },
   "main": "dist/vue-input-facade.umd.min.js",
-  "files": [ "dist/*.js" ],
+  "files": [
+    "dist/*.js"
+  ],
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-plugin-eslint": "^4.3.1",
@@ -33,12 +36,14 @@
     "core-js": "^3.6.5",
     "coveralls": "^3.1.0",
     "cz-conventional-changelog": "^3.2.0",
+    "dotenv-cli": "^4.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^5.0.0",
     "husky": "^4.2.5",
     "prettier": "^1.18.2",
-    "semantic-release": "^17.0.7",
+    "release-it": "^14.6.1",
+    "semantic-release": "^17.4.2",
     "vue": "^2.6.11",
     "vue-cli-plugin-styleguidist": "^4.24.1",
     "vue-template-compiler": "^2.6.11"
@@ -66,5 +71,21 @@
     "front-end",
     "vue-input-facade",
     "web"
-  ]
+  ],
+  "release-it": {
+    "hooks": {
+      "before:git:release": [
+        "npm run build",
+        "git add dist/*"
+      ]
+    },
+    "github": {
+      "release": true,
+      "requireCommits": true
+    },
+    "npm": {
+      "publish": false,
+      "ignoreVersion": true
+    }
+  }
 }
