@@ -1529,7 +1529,10 @@ const directive_CONFIG_KEY = CONFIG_KEY;
   },
   inserted: el => {
     el = getInputElement(el);
-    const config = el[directive_CONFIG_KEY]; // prefer adding event listener to parent element to avoid Firefox bug which does not
+    const config = el[directive_CONFIG_KEY];
+    if (typeof config.config.oldValue === 'undefined') updateValue(el, null, {
+      force: config.prefill
+    }); // prefer adding event listener to parent element to avoid Firefox bug which does not
     // execute `useCapture: true` event handlers before non-capturing event handlers
 
     const handlerOwner = el.parentElement || el; // use anonymous event handler to avoid inadvertently removing masking for all inputs within a container
@@ -1560,12 +1563,12 @@ const directive_CONFIG_KEY = CONFIG_KEY;
     getInputElement(el)[directive_CONFIG_KEY].cleanup();
   }
 });
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"772724e8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/component.vue?vue&type=template&id=25a429ca&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"772724e8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/component.vue?vue&type=template&id=48f6b1e4&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('input',{directives:[{name:"facade",rawName:"v-facade",value:(_vm.config),expression:"config"}],attrs:{"type":"text"},domProps:{"value":_vm.maskedValue},on:{"input":_vm.onInput,"change":_vm.onChange,"blur":function($event){return _vm.$emit('blur')},"focus":function($event){return _vm.$emit('focus')}}})}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/component.vue?vue&type=template&id=25a429ca&
+// CONCATENATED MODULE: ./src/component.vue?vue&type=template&id=48f6b1e4&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/component.vue?vue&type=script&lang=js&
 //
