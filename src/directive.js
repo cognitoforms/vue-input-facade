@@ -14,6 +14,10 @@ export default {
   inserted: (el) => {
     el = core.getInputElement(el)
     const config = el[CONFIG_KEY]
+
+    // Attempt to update if the element did not have a value when `bind` was called, but now does
+    if (typeof config.config.oldValue === 'undefined') core.updateValue(el, null, { force: config.config.prefill })
+
     // prefer adding event listener to parent element to avoid Firefox bug which does not
     // execute `useCapture: true` event handlers before non-capturing event handlers
     const handlerOwner = el.parentElement || el
