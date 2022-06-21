@@ -1531,7 +1531,7 @@ const directive_CONFIG_KEY = CONFIG_KEY;
     el = getInputElement(el);
     const config = el[directive_CONFIG_KEY];
     if (typeof config.config.oldValue === 'undefined') updateValue(el, null, {
-      force: config.prefill
+      force: config.config.prefill
     }); // prefer adding event listener to parent element to avoid Firefox bug which does not
     // execute `useCapture: true` event handlers before non-capturing event handlers
 
