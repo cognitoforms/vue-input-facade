@@ -1,6 +1,6 @@
 import facade from '../src/directive'
 import { CONFIG_KEY } from '../src/core'
-import { mount, shallowMount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 
 describe('Directive', () => {
   let wrapper
@@ -89,72 +89,6 @@ describe('Directive', () => {
 
     expect(wrapper.element.value).toBe('11.22')
     expect(wrapper.element.unmaskedValue).toBe('1122')
-  })
-
-  test('Should update element value when mounted', async () => {
-    const innerComponent = {
-      name: 'm-input',
-      template: '<input ref="innerComponent" @input="handleInput" />',
-      methods: {
-        handleInput(e) {
-          this.internalValue = e.target.value
-          this.$emit('input', e.target.value)
-        },
-        updateInputValue(value) {
-          this.$refs.innerComponent.value = value
-        }
-      },
-      watch: {
-        value(newVal) {
-          this.internalValue = newVal
-          if (this.$refs.innerComponent) this.updateInputValue(this.internalValue)
-        }
-      },
-      mounted: function() {
-        this.updateInputValue(this.internalValue)
-      },
-      props: {
-        value: String
-      },
-      data() {
-        return {
-          internalValue: this.value
-        }
-      }
-    }
-
-    const outerComponent = {
-      template: "<m-input ref='outerComponent' v-facade='mask' :value='internalValue' @input='handleInput' />",
-      directives: { facade },
-      components: { 'm-input': innerComponent },
-      watch: {
-        value() {
-          this.internalValue = this.value
-        }
-      },
-      methods: {
-        handleInput(newVal) {
-          this.internalValue = newVal
-        }
-      },
-      data() {
-        return {
-          value: '1234',
-          internalValue: '1234',
-          mask: '##.##'
-        }
-      }
-    }
-
-    const wrapper = mount(outerComponent)
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.vm.$refs.outerComponent.$refs.innerComponent.value).toBe('12.34')
-
-    wrapper.vm.value = ''
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.vm.$refs.outerComponent.$refs.innerComponent.value).toBe('')
   })
 
   test('Should honor short modifier', async () => {
